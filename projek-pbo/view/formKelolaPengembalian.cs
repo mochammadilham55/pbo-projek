@@ -6,11 +6,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace projek_pbo.form
+namespace projek_pbo.view
 {
-    public partial class formKelolaDataAlat : Form
+    public partial class formKelolaPengembalian : Form
     {
-        public formKelolaDataAlat()
+        public formKelolaPengembalian()
         {
             InitializeComponent();
         }
