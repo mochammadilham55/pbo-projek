@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Semester 3\\PBO\\projek-pbo\\projek-pbo\\projek-pbo.csproj": {}
+    "C:\\Users\\HP\\source\\repos\\pbo-projek\\projek-pbo\\projek-pbo.csproj": {}
   },
   "projects": {
-    "D:\\Semester 3\\PBO\\projek-pbo\\projek-pbo\\projek-pbo.csproj": {
+    "C:\\Users\\HP\\source\\repos\\pbo-projek\\projek-pbo\\projek-pbo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Semester 3\\PBO\\projek-pbo\\projek-pbo\\projek-pbo.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\source\\repos\\pbo-projek\\projek-pbo\\projek-pbo.csproj",
         "projectName": "projek-pbo",
-        "projectPath": "D:\\Semester 3\\PBO\\projek-pbo\\projek-pbo\\projek-pbo.csproj",
-        "packagesPath": "C:\\Users\\AXIOO\\.nuget\\packages\\",
-        "outputPath": "D:\\Semester 3\\PBO\\projek-pbo\\projek-pbo\\obj\\",
+        "projectPath": "C:\\Users\\HP\\source\\repos\\pbo-projek\\projek-pbo\\projek-pbo.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\HP\\source\\repos\\pbo-projek\\projek-pbo\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\AXIOO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
