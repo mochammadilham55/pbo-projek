@@ -13,6 +13,8 @@ namespace projek_pbo.view
         public formLaporan()
         {
             InitializeComponent();
+            Navigasi.PasangSidebar(this, btnDashboard, btnAlat, btnSewa, btnPengembaian,
+                btnLaporan, btnUser, btnLogout);
         }
     }
 }

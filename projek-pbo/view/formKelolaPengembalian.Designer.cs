@@ -41,42 +41,40 @@
             pnlUtama = new Panel();
             pnlIsi = new Panel();
             panel4 = new Panel();
-            panel3 = new Panel();
-            panel2 = new Panel();
-            lblPengguna = new Label();
-            dgvSewa = new DataGridView();
-            label3 = new Label();
-            txtCari = new TextBox();
-            lblCari = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            label7 = new Label();
-            label8 = new Label();
-            txtTerlambat = new TextBox();
-            dtpKembali = new DateTimePicker();
-            txtDenda = new TextBox();
-            txtTotalDenda = new TextBox();
-            chkAdaKerusakan = new CheckBox();
-            txtDendaKerusakan = new TextBox();
-            label9 = new Label();
-            txtKeterangan = new TextBox();
-            label10 = new Label();
-            button1 = new Button();
             btnProses = new Button();
+            label10 = new Label();
+            txtKeterangan = new TextBox();
+            label9 = new Label();
+            txtDendaKerusakan = new TextBox();
+            chkAdaKerusakan = new CheckBox();
+            txtTotalDenda = new TextBox();
+            txtDenda = new TextBox();
+            dtpKembali = new DateTimePicker();
+            txtTerlambat = new TextBox();
+            label8 = new Label();
+            label7 = new Label();
+            label6 = new Label();
+            label5 = new Label();
+            label4 = new Label();
+            panel3 = new Panel();
             btnCari = new Button();
+            lblCari = new Label();
+            txtCari = new TextBox();
+            dgvSewa = new DataGridView();
             colPenyewa = new DataGridViewTextBoxColumn();
             colAlat = new DataGridViewTextBoxColumn();
             colMulai = new DataGridViewTextBoxColumn();
             colKembali = new DataGridViewTextBoxColumn();
             colKeterangan = new DataGridViewTextBoxColumn();
+            panel2 = new Panel();
+            lblPengguna = new Label();
             panel1.SuspendLayout();
             pnlUtama.SuspendLayout();
             pnlIsi.SuspendLayout();
             panel4.SuspendLayout();
             panel3.SuspendLayout();
-            panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvSewa).BeginInit();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // label2
@@ -89,7 +87,6 @@
             label2.Size = new Size(430, 38);
             label2.TabIndex = 0;
             label2.Text = "Kelola Pengembalian dan Denda";
-            label2.Click += label2_Click;
             // 
             // panel1
             // 
@@ -110,7 +107,7 @@
             // 
             // btnLogout
             // 
-            btnLogout.BackColor = Color.Red;
+            btnLogout.BackColor = Color.FromArgb(179, 65, 47);
             btnLogout.FlatAppearance.BorderSize = 0;
             btnLogout.FlatAppearance.MouseOverBackColor = Color.FromArgb(62, 122, 60);
             btnLogout.FlatStyle = FlatStyle.Flat;
@@ -157,6 +154,7 @@
             // 
             // btnPengembaian
             // 
+            btnPengembaian.BackColor = Color.FromArgb(62, 122, 60);
             btnPengembaian.Dock = DockStyle.Top;
             btnPengembaian.FlatAppearance.BorderSize = 0;
             btnPengembaian.FlatAppearance.MouseOverBackColor = Color.FromArgb(62, 122, 60);
@@ -169,7 +167,7 @@
             btnPengembaian.TabIndex = 4;
             btnPengembaian.Text = "Kelola Pengembalian";
             btnPengembaian.TextAlign = ContentAlignment.MiddleLeft;
-            btnPengembaian.UseVisualStyleBackColor = true;
+            btnPengembaian.UseVisualStyleBackColor = false;
             // 
             // btnSewa
             // 
@@ -218,7 +216,6 @@
             btnDashboard.Text = "Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
             btnDashboard.UseVisualStyleBackColor = true;
-            btnDashboard.Click += btnDashboard_Click;
             // 
             // label1
             // 
@@ -277,7 +274,148 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(778, 229);
             panel4.TabIndex = 1;
-            panel4.Paint += panel4_Paint;
+            // 
+            // btnProses
+            // 
+            btnProses.BackColor = Color.FromArgb(62, 122, 60);
+            btnProses.FlatAppearance.MouseDownBackColor = Color.FromArgb(192, 255, 192);
+            btnProses.ForeColor = Color.White;
+            btnProses.Location = new Point(570, 185);
+            btnProses.Name = "btnProses";
+            btnProses.Size = new Size(160, 39);
+            btnProses.TabIndex = 27;
+            btnProses.Text = "Proses Pengembalian";
+            btnProses.UseVisualStyleBackColor = false;
+            btnProses.Click += btnProses_Click;
+            // 
+            // label10
+            // 
+            label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label10.AutoSize = true;
+            label10.Location = new Point(403, 118);
+            label10.Name = "label10";
+            label10.Size = new Size(85, 20);
+            label10.TabIndex = 26;
+            label10.Text = "Keterangan";
+            // 
+            // txtKeterangan
+            // 
+            txtKeterangan.Location = new Point(403, 152);
+            txtKeterangan.Name = "txtKeterangan";
+            txtKeterangan.Size = new Size(327, 27);
+            txtKeterangan.TabIndex = 25;
+            // 
+            // label9
+            // 
+            label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label9.AutoSize = true;
+            label9.Location = new Point(217, 118);
+            label9.Name = "label9";
+            label9.Size = new Size(122, 20);
+            label9.TabIndex = 24;
+            label9.Text = "Denda kerusakan";
+            // 
+            // txtDendaKerusakan
+            // 
+            txtDendaKerusakan.Location = new Point(217, 152);
+            txtDendaKerusakan.Name = "txtDendaKerusakan";
+            txtDendaKerusakan.Size = new Size(137, 27);
+            txtDendaKerusakan.TabIndex = 23;
+            txtDendaKerusakan.TextChanged += txtDendaKerusakan_TextChanged;
+            // 
+            // chkAdaKerusakan
+            // 
+            chkAdaKerusakan.AutoSize = true;
+            chkAdaKerusakan.Location = new Point(35, 153);
+            chkAdaKerusakan.Name = "chkAdaKerusakan";
+            chkAdaKerusakan.Size = new Size(127, 24);
+            chkAdaKerusakan.TabIndex = 22;
+            chkAdaKerusakan.Text = "Ada kerusakan";
+            chkAdaKerusakan.UseVisualStyleBackColor = true;
+            chkAdaKerusakan.CheckedChanged += chkAdaKerusakan_CheckedChanged;
+            // 
+            // txtTotalDenda
+            // 
+            txtTotalDenda.Location = new Point(593, 73);
+            txtTotalDenda.Name = "txtTotalDenda";
+            txtTotalDenda.ReadOnly = true;
+            txtTotalDenda.Size = new Size(137, 27);
+            txtTotalDenda.TabIndex = 21;
+            // 
+            // txtDenda
+            // 
+            txtDenda.Location = new Point(403, 73);
+            txtDenda.Name = "txtDenda";
+            txtDenda.ReadOnly = true;
+            txtDenda.Size = new Size(137, 27);
+            txtDenda.TabIndex = 20;
+            // 
+            // dtpKembali
+            // 
+            dtpKembali.Format = DateTimePickerFormat.Short;
+            dtpKembali.Location = new Point(33, 74);
+            dtpKembali.Name = "dtpKembali";
+            dtpKembali.Size = new Size(158, 27);
+            dtpKembali.TabIndex = 19;
+            dtpKembali.ValueChanged += dtpKembali_ValueChanged;
+            // 
+            // txtTerlambat
+            // 
+            txtTerlambat.Location = new Point(217, 74);
+            txtTerlambat.Name = "txtTerlambat";
+            txtTerlambat.ReadOnly = true;
+            txtTerlambat.Size = new Size(137, 27);
+            txtTerlambat.TabIndex = 14;
+            // 
+            // label8
+            // 
+            label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label8.AutoSize = true;
+            label8.Location = new Point(593, 50);
+            label8.Name = "label8";
+            label8.Size = new Size(88, 20);
+            label8.TabIndex = 18;
+            label8.Text = "Total denda";
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label7.AutoSize = true;
+            label7.Location = new Point(403, 48);
+            label7.Name = "label7";
+            label7.Size = new Size(53, 20);
+            label7.TabIndex = 17;
+            label7.Text = "Denda";
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label6.AutoSize = true;
+            label6.Location = new Point(219, 47);
+            label6.Name = "label6";
+            label6.Size = new Size(106, 20);
+            label6.TabIndex = 16;
+            label6.Text = "Hari terlambat";
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.Location = new Point(29, 48);
+            label5.Name = "label5";
+            label5.Size = new Size(120, 20);
+            label5.TabIndex = 15;
+            label5.Text = "Tanggal Kembali";
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.Location = new Point(29, 14);
+            label4.Name = "label4";
+            label4.Size = new Size(147, 20);
+            label4.TabIndex = 14;
+            label4.Text = "Detail Pengembalian";
             // 
             // panel3
             // 
@@ -291,28 +429,35 @@
             panel3.Size = new Size(778, 281);
             panel3.TabIndex = 0;
             // 
-            // panel2
+            // btnCari
             // 
-            panel2.BackColor = Color.White;
-            panel2.Controls.Add(button1);
-            panel2.Controls.Add(label3);
-            panel2.Controls.Add(lblPengguna);
-            panel2.Controls.Add(label2);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1082, 78);
-            panel2.TabIndex = 0;
+            btnCari.BackColor = Color.FromArgb(62, 122, 60);
+            btnCari.FlatAppearance.MouseDownBackColor = Color.FromArgb(192, 255, 192);
+            btnCari.ForeColor = Color.White;
+            btnCari.Location = new Point(352, 9);
+            btnCari.Name = "btnCari";
+            btnCari.Size = new Size(58, 39);
+            btnCari.TabIndex = 28;
+            btnCari.Text = "Cari";
+            btnCari.UseVisualStyleBackColor = false;
+            btnCari.Click += btnCari_Click;
             // 
-            // lblPengguna
+            // lblCari
             // 
-            lblPengguna.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblPengguna.AutoSize = true;
-            lblPengguna.Location = new Point(1537, 30);
-            lblPengguna.Name = "lblPengguna";
-            lblPengguna.Size = new Size(165, 20);
-            lblPengguna.TabIndex = 1;
-            lblPengguna.Text = "Masuk sebagai: Petugas";
+            lblCari.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblCari.AutoSize = true;
+            lblCari.Location = new Point(24, 18);
+            lblCari.Name = "lblCari";
+            lblCari.Size = new Size(142, 20);
+            lblCari.TabIndex = 3;
+            lblCari.Text = "Cari nama penyewa:";
+            // 
+            // txtCari
+            // 
+            txtCari.Location = new Point(172, 15);
+            txtCari.Name = "txtCari";
+            txtCari.Size = new Size(149, 27);
+            txtCari.TabIndex = 13;
             // 
             // dgvSewa
             // 
@@ -337,195 +482,11 @@
             dgvSewa.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvSewa.Size = new Size(730, 217);
             dgvSewa.TabIndex = 12;
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label3.AutoSize = true;
-            label3.Location = new Point(890, 32);
-            label3.Name = "label3";
-            label3.Size = new Size(165, 20);
-            label3.TabIndex = 2;
-            label3.Text = "Masuk sebagai: Petugas";
-            // 
-            // txtCari
-            // 
-            txtCari.Location = new Point(172, 15);
-            txtCari.Name = "txtCari";
-            txtCari.Size = new Size(149, 27);
-            txtCari.TabIndex = 13;
-            // 
-            // lblCari
-            // 
-            lblCari.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblCari.AutoSize = true;
-            lblCari.Location = new Point(24, 18);
-            lblCari.Name = "lblCari";
-            lblCari.Size = new Size(142, 20);
-            lblCari.TabIndex = 3;
-            lblCari.Text = "Cari nama penyewa:";
-            // 
-            // label4
-            // 
-            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label4.AutoSize = true;
-            label4.Location = new Point(29, 14);
-            label4.Name = "label4";
-            label4.Size = new Size(147, 20);
-            label4.TabIndex = 14;
-            label4.Text = "Detail Pengembalian";
-            // 
-            // label5
-            // 
-            label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label5.AutoSize = true;
-            label5.Location = new Point(29, 48);
-            label5.Name = "label5";
-            label5.Size = new Size(111, 20);
-            label5.TabIndex = 15;
-            label5.Text = "Tangal Kembali";
-            // 
-            // label6
-            // 
-            label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label6.AutoSize = true;
-            label6.Location = new Point(219, 47);
-            label6.Name = "label6";
-            label6.Size = new Size(106, 20);
-            label6.TabIndex = 16;
-            label6.Text = "Hari terlambat";
-            // 
-            // label7
-            // 
-            label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label7.AutoSize = true;
-            label7.Location = new Point(403, 48);
-            label7.Name = "label7";
-            label7.Size = new Size(53, 20);
-            label7.TabIndex = 17;
-            label7.Text = "Denda";
-            // 
-            // label8
-            // 
-            label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label8.AutoSize = true;
-            label8.Location = new Point(593, 50);
-            label8.Name = "label8";
-            label8.Size = new Size(88, 20);
-            label8.TabIndex = 18;
-            label8.Text = "Total denda";
-            // 
-            // txtTerlambat
-            // 
-            txtTerlambat.Location = new Point(217, 74);
-            txtTerlambat.Name = "txtTerlambat";
-            txtTerlambat.ReadOnly = true;
-            txtTerlambat.Size = new Size(137, 27);
-            txtTerlambat.TabIndex = 14;
-            // 
-            // dtpKembali
-            // 
-            dtpKembali.Format = DateTimePickerFormat.Short;
-            dtpKembali.Location = new Point(33, 74);
-            dtpKembali.Name = "dtpKembali";
-            dtpKembali.Size = new Size(158, 27);
-            dtpKembali.TabIndex = 19;
-            // 
-            // txtDenda
-            // 
-            txtDenda.Location = new Point(403, 73);
-            txtDenda.Name = "txtDenda";
-            txtDenda.ReadOnly = true;
-            txtDenda.Size = new Size(137, 27);
-            txtDenda.TabIndex = 20;
-            // 
-            // txtTotalDenda
-            // 
-            txtTotalDenda.Location = new Point(593, 73);
-            txtTotalDenda.Name = "txtTotalDenda";
-            txtTotalDenda.ReadOnly = true;
-            txtTotalDenda.Size = new Size(137, 27);
-            txtTotalDenda.TabIndex = 21;
-            // 
-            // chkAdaKerusakan
-            // 
-            chkAdaKerusakan.AutoSize = true;
-            chkAdaKerusakan.Enabled = false;
-            chkAdaKerusakan.Location = new Point(35, 153);
-            chkAdaKerusakan.Name = "chkAdaKerusakan";
-            chkAdaKerusakan.Size = new Size(127, 24);
-            chkAdaKerusakan.TabIndex = 22;
-            chkAdaKerusakan.Text = "Ada kerusakan";
-            chkAdaKerusakan.UseVisualStyleBackColor = true;
-            // 
-            // txtDendaKerusakan
-            // 
-            txtDendaKerusakan.Location = new Point(217, 152);
-            txtDendaKerusakan.Name = "txtDendaKerusakan";
-            txtDendaKerusakan.Size = new Size(137, 27);
-            txtDendaKerusakan.TabIndex = 23;
-            // 
-            // label9
-            // 
-            label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label9.AutoSize = true;
-            label9.Location = new Point(217, 118);
-            label9.Name = "label9";
-            label9.Size = new Size(122, 20);
-            label9.TabIndex = 24;
-            label9.Text = "Denda kerusakan";
-            // 
-            // txtKeterangan
-            // 
-            txtKeterangan.Location = new Point(403, 152);
-            txtKeterangan.Name = "txtKeterangan";
-            txtKeterangan.Size = new Size(327, 27);
-            txtKeterangan.TabIndex = 25;
-            // 
-            // label10
-            // 
-            label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label10.AutoSize = true;
-            label10.Location = new Point(403, 118);
-            label10.Name = "label10";
-            label10.Size = new Size(85, 20);
-            label10.TabIndex = 26;
-            label10.Text = "Keterangan";
-            // 
-            // button1
-            // 
-            button1.Location = new Point(0, 0);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 3;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // btnProses
-            // 
-            btnProses.BackColor = Color.FromArgb(0, 192, 0);
-            btnProses.FlatAppearance.MouseDownBackColor = Color.FromArgb(192, 255, 192);
-            btnProses.Location = new Point(570, 185);
-            btnProses.Name = "btnProses";
-            btnProses.Size = new Size(160, 39);
-            btnProses.TabIndex = 27;
-            btnProses.Text = "Submit";
-            btnProses.UseVisualStyleBackColor = false;
-            // 
-            // btnCari
-            // 
-            btnCari.BackColor = Color.FromArgb(0, 192, 0);
-            btnCari.FlatAppearance.MouseDownBackColor = Color.FromArgb(192, 255, 192);
-            btnCari.Location = new Point(352, 9);
-            btnCari.Name = "btnCari";
-            btnCari.Size = new Size(58, 39);
-            btnCari.TabIndex = 28;
-            btnCari.Text = "Cari";
-            btnCari.UseVisualStyleBackColor = false;
+            dgvSewa.CellClick += dgvSewa_CellClick;
             // 
             // colPenyewa
             // 
-            colPenyewa.HeaderText = "penyewa";
+            colPenyewa.HeaderText = "Penyewa";
             colPenyewa.MinimumWidth = 6;
             colPenyewa.Name = "colPenyewa";
             colPenyewa.ReadOnly = true;
@@ -546,7 +507,7 @@
             // 
             // colKembali
             // 
-            colKembali.HeaderText = "Kembali";
+            colKembali.HeaderText = "Rencana Kembali";
             colKembali.MinimumWidth = 6;
             colKembali.Name = "colKembali";
             colKembali.ReadOnly = true;
@@ -558,6 +519,27 @@
             colKeterangan.Name = "colKeterangan";
             colKeterangan.ReadOnly = true;
             // 
+            // panel2
+            // 
+            panel2.BackColor = Color.White;
+            panel2.Controls.Add(lblPengguna);
+            panel2.Controls.Add(label2);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1082, 78);
+            panel2.TabIndex = 0;
+            // 
+            // lblPengguna
+            // 
+            lblPengguna.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblPengguna.AutoSize = true;
+            lblPengguna.Location = new Point(860, 30);
+            lblPengguna.Name = "lblPengguna";
+            lblPengguna.Size = new Size(165, 20);
+            lblPengguna.TabIndex = 1;
+            lblPengguna.Text = "Masuk sebagai: Petugas";
+            // 
             // formKelolaPengembalian
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -566,7 +548,7 @@
             Controls.Add(panel1);
             Controls.Add(pnlUtama);
             Name = "formKelolaPengembalian";
-            Text = "formKelolaPengembalian";
+            Text = "Kelola Pengembalian - Agri-Rent";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             pnlUtama.ResumeLayout(false);
@@ -575,9 +557,9 @@
             panel4.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvSewa).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvSewa).EndInit();
             ResumeLayout(false);
         }
 
@@ -601,7 +583,6 @@
         private Panel panel3;
         private DataGridView dgvSewa;
         private TextBox txtCari;
-        private Label label3;
         private Label lblCari;
         private Label label7;
         private Label label6;
@@ -618,7 +599,6 @@
         private TextBox txtTotalDenda;
         private TextBox txtDenda;
         private Button btnProses;
-        private Button button1;
         private Button btnCari;
         private DataGridViewTextBoxColumn colPenyewa;
         private DataGridViewTextBoxColumn colAlat;

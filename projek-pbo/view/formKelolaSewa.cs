@@ -13,9 +13,16 @@ namespace projek_pbo.view
         public formKelolaSewa()
         {
             InitializeComponent();
+            Navigasi.PasangSidebar(this, btnDashboard, btnAlat, btnSewa, btnPengembaian,
+                btnLaporan, btnUser, btnLogout, lblPengguna);
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void lblPengguna_Click(object sender, EventArgs e)
         {
 
         }

@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
-using projek_pbo.form;
+using projek_pbo.view;
 
 namespace projek_pbo
 {
@@ -11,7 +11,18 @@ namespace projek_pbo
         {
             ApplicationConfiguration.Initialize();
 
-            Application.Run(new formUtama("Administrator"));
+            try
+            {
+                databaseHelper.InisialisasiDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Tidak dapat terhubung ke database.\n\n" + ex.Message, "Agri-Rent",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Application.Run(new FormLogin());
         }
     }
 }
