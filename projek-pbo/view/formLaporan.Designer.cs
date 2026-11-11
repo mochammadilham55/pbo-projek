@@ -28,181 +28,184 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
+            pnlSidebar = new Panel();
             btnLogout = new Button();
-            lblHalaman = new Label();
             btnUser = new Button();
             btnLaporan = new Button();
             btnPengembaian = new Button();
             btnSewa = new Button();
             btnAlat = new Button();
             btnDashboard = new Button();
-            label1 = new Label();
-            panel1.SuspendLayout();
+            lblLogo = new Label();
+            pnlSidebar.SuspendLayout();
             SuspendLayout();
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.FromArgb(47, 93, 58);
-            panel1.Controls.Add(btnLogout);
-            panel1.Controls.Add(lblHalaman);
-            panel1.Controls.Add(btnUser);
-            panel1.Controls.Add(btnLaporan);
-            panel1.Controls.Add(btnPengembaian);
-            panel1.Controls.Add(btnSewa);
-            panel1.Controls.Add(btnAlat);
-            panel1.Controls.Add(btnDashboard);
-            panel1.Controls.Add(label1);
-            panel1.Dock = DockStyle.Left;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(250, 656);
-            panel1.TabIndex = 5;
-            // 
+            //
+            // pnlSidebar
+            //
+            pnlSidebar.BackColor = Color.FromArgb(47, 93, 58);
+            pnlSidebar.Controls.Add(btnLogout);
+            pnlSidebar.Controls.Add(btnUser);
+            pnlSidebar.Controls.Add(btnLaporan);
+            pnlSidebar.Controls.Add(btnPengembaian);
+            pnlSidebar.Controls.Add(btnSewa);
+            pnlSidebar.Controls.Add(btnAlat);
+            pnlSidebar.Controls.Add(btnDashboard);
+            pnlSidebar.Controls.Add(lblLogo);
+            pnlSidebar.Dock = DockStyle.Left;
+            pnlSidebar.Location = new Point(0, 0);
+            pnlSidebar.Name = "pnlSidebar";
+            pnlSidebar.Size = new Size(250, 720);
+            pnlSidebar.TabIndex = 10;
+            //
             // btnLogout
-            // 
-            btnLogout.FlatAppearance.MouseOverBackColor = Color.FromArgb(62, 122, 60);
+            //
+            btnLogout.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnLogout.BackColor = Color.FromArgb(179, 65, 47);
+            btnLogout.FlatAppearance.BorderSize = 0;
+            btnLogout.FlatAppearance.MouseOverBackColor = Color.FromArgb(150, 50, 36);
             btnLogout.FlatStyle = FlatStyle.Flat;
             btnLogout.ForeColor = Color.White;
-            btnLogout.Location = new Point(10, 616);
+            btnLogout.Location = new Point(12, 672);
             btnLogout.Name = "btnLogout";
-            btnLogout.Padding = new Padding(15, 0, 0, 0);
-            btnLogout.Size = new Size(92, 29);
+            btnLogout.Size = new Size(226, 34);
             btnLogout.TabIndex = 8;
             btnLogout.Text = "Logout";
-            btnLogout.TextAlign = ContentAlignment.MiddleLeft;
-            btnLogout.UseVisualStyleBackColor = true;
-            // 
-            // lblHalaman
-            // 
-            lblHalaman.AutoSize = true;
-            lblHalaman.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblHalaman.ForeColor = SystemColors.ControlLightLight;
-            lblHalaman.Location = new Point(61, 47);
-            lblHalaman.Name = "lblHalaman";
-            lblHalaman.Size = new Size(101, 31);
-            lblHalaman.TabIndex = 7;
-            lblHalaman.Text = "Laporan";
-            // 
+            btnLogout.UseVisualStyleBackColor = false;
+            //
             // btnUser
-            // 
+            //
+            btnUser.Dock = DockStyle.Top;
+            btnUser.FlatAppearance.BorderSize = 0;
             btnUser.FlatAppearance.MouseOverBackColor = Color.FromArgb(62, 122, 60);
             btnUser.FlatStyle = FlatStyle.Flat;
             btnUser.ForeColor = Color.White;
-            btnUser.Location = new Point(10, 352);
+            btnUser.Location = new Point(0, 278);
             btnUser.Name = "btnUser";
-            btnUser.Padding = new Padding(15, 0, 0, 0);
-            btnUser.Size = new Size(222, 29);
+            btnUser.Padding = new Padding(30, 0, 0, 0);
+            btnUser.Size = new Size(250, 36);
             btnUser.TabIndex = 6;
-            btnUser.Text = "Kelola user";
+            btnUser.Text = "Kelola User";
             btnUser.TextAlign = ContentAlignment.MiddleLeft;
             btnUser.UseVisualStyleBackColor = true;
-            // 
+            //
             // btnLaporan
-            // 
+            //
+            btnLaporan.BackColor = Color.FromArgb(62, 122, 60);
+            btnLaporan.Dock = DockStyle.Top;
+            btnLaporan.FlatAppearance.BorderSize = 0;
             btnLaporan.FlatAppearance.MouseOverBackColor = Color.FromArgb(62, 122, 60);
             btnLaporan.FlatStyle = FlatStyle.Flat;
             btnLaporan.ForeColor = Color.White;
-            btnLaporan.Location = new Point(10, 300);
+            btnLaporan.Location = new Point(0, 242);
             btnLaporan.Name = "btnLaporan";
-            btnLaporan.Padding = new Padding(15, 0, 0, 0);
-            btnLaporan.Size = new Size(222, 29);
+            btnLaporan.Padding = new Padding(30, 0, 0, 0);
+            btnLaporan.Size = new Size(250, 36);
             btnLaporan.TabIndex = 5;
             btnLaporan.Text = "Laporan";
             btnLaporan.TextAlign = ContentAlignment.MiddleLeft;
-            btnLaporan.UseVisualStyleBackColor = true;
-            // 
+            btnLaporan.UseVisualStyleBackColor = false;
+            //
             // btnPengembaian
-            // 
+            //
+            btnPengembaian.Dock = DockStyle.Top;
+            btnPengembaian.FlatAppearance.BorderSize = 0;
             btnPengembaian.FlatAppearance.MouseOverBackColor = Color.FromArgb(62, 122, 60);
             btnPengembaian.FlatStyle = FlatStyle.Flat;
-            btnPengembaian.ForeColor = Color.FromArgb(224, 224, 224);
-            btnPengembaian.Location = new Point(11, 246);
+            btnPengembaian.ForeColor = Color.White;
+            btnPengembaian.Location = new Point(0, 206);
             btnPengembaian.Name = "btnPengembaian";
-            btnPengembaian.Padding = new Padding(15, 0, 0, 0);
-            btnPengembaian.Size = new Size(222, 29);
+            btnPengembaian.Padding = new Padding(30, 0, 0, 0);
+            btnPengembaian.Size = new Size(250, 36);
             btnPengembaian.TabIndex = 4;
             btnPengembaian.Text = "Kelola Pengembalian";
             btnPengembaian.TextAlign = ContentAlignment.MiddleLeft;
             btnPengembaian.UseVisualStyleBackColor = true;
-            // 
+            //
             // btnSewa
-            // 
+            //
+            btnSewa.Dock = DockStyle.Top;
+            btnSewa.FlatAppearance.BorderSize = 0;
             btnSewa.FlatAppearance.MouseOverBackColor = Color.FromArgb(62, 122, 60);
             btnSewa.FlatStyle = FlatStyle.Flat;
             btnSewa.ForeColor = Color.White;
-            btnSewa.Location = new Point(11, 196);
+            btnSewa.Location = new Point(0, 170);
             btnSewa.Name = "btnSewa";
-            btnSewa.Padding = new Padding(15, 0, 0, 0);
-            btnSewa.Size = new Size(222, 29);
+            btnSewa.Padding = new Padding(30, 0, 0, 0);
+            btnSewa.Size = new Size(250, 36);
             btnSewa.TabIndex = 3;
             btnSewa.Text = "Kelola Sewa";
             btnSewa.TextAlign = ContentAlignment.MiddleLeft;
             btnSewa.UseVisualStyleBackColor = true;
-            // 
+            //
             // btnAlat
-            // 
+            //
+            btnAlat.Dock = DockStyle.Top;
+            btnAlat.FlatAppearance.BorderSize = 0;
             btnAlat.FlatAppearance.MouseOverBackColor = Color.FromArgb(62, 122, 60);
             btnAlat.FlatStyle = FlatStyle.Flat;
             btnAlat.ForeColor = Color.White;
-            btnAlat.Location = new Point(11, 143);
+            btnAlat.Location = new Point(0, 134);
             btnAlat.Name = "btnAlat";
-            btnAlat.Padding = new Padding(15, 0, 0, 0);
-            btnAlat.Size = new Size(222, 29);
+            btnAlat.Padding = new Padding(30, 0, 0, 0);
+            btnAlat.Size = new Size(250, 36);
             btnAlat.TabIndex = 2;
-            btnAlat.Text = "Kelola alat";
+            btnAlat.Text = "Kelola Alat";
             btnAlat.TextAlign = ContentAlignment.MiddleLeft;
             btnAlat.UseVisualStyleBackColor = true;
-            // 
+            //
             // btnDashboard
-            // 
+            //
+            btnDashboard.Dock = DockStyle.Top;
+            btnDashboard.FlatAppearance.BorderSize = 0;
             btnDashboard.FlatAppearance.MouseOverBackColor = Color.FromArgb(62, 122, 60);
             btnDashboard.FlatStyle = FlatStyle.Flat;
             btnDashboard.ForeColor = Color.White;
-            btnDashboard.Location = new Point(11, 96);
+            btnDashboard.Location = new Point(0, 98);
             btnDashboard.Name = "btnDashboard";
-            btnDashboard.Padding = new Padding(15, 0, 0, 0);
-            btnDashboard.Size = new Size(222, 29);
+            btnDashboard.Padding = new Padding(30, 0, 0, 0);
+            btnDashboard.Size = new Size(250, 36);
             btnDashboard.TabIndex = 1;
             btnDashboard.Text = "Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
             btnDashboard.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(48, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(144, 38);
-            label1.TabIndex = 1;
-            label1.Text = "Agri-Rent";
+            //
+            // lblLogo
+            //
+            lblLogo.AutoSize = true;
+            lblLogo.Dock = DockStyle.Top;
+            lblLogo.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblLogo.ForeColor = Color.White;
+            lblLogo.Location = new Point(0, 0);
+            lblLogo.Name = "lblLogo";
+            lblLogo.Padding = new Padding(50, 30, 30, 30);
+            lblLogo.Size = new Size(224, 98);
+            lblLogo.TabIndex = 0;
+            lblLogo.Text = "Agri-Rent";
             // 
             // formLaporan
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1223, 656);
-            Controls.Add(panel1);
+            Controls.Add(pnlSidebar);
+            MinimumSize = new Size(1150, 680);
             Name = "formLaporan";
-            Text = "formLaporan";
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            Text = "Laporan - Agri-Rent";
+            pnlSidebar.ResumeLayout(false);
+            pnlSidebar.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Panel panel1;
+        private Panel pnlSidebar;
         private Button btnLogout;
-        private Label lblHalaman;
         private Button btnUser;
         private Button btnLaporan;
         private Button btnPengembaian;
         private Button btnSewa;
         private Button btnAlat;
         private Button btnDashboard;
-        private Label label1;
+        private Label lblLogo;
     }
 }
