@@ -105,7 +105,10 @@
             lblHalaman.AutoSize = true;
             lblHalaman.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblHalaman.ForeColor = SystemColors.ControlLightLight;
+
             lblHalaman.Location = new Point(42, 35);
+            //lblHalaman.Location = new Point(61, 47);
+
             lblHalaman.Name = "lblHalaman";
             lblHalaman.Size = new Size(0, 25);
             lblHalaman.TabIndex = 7;
