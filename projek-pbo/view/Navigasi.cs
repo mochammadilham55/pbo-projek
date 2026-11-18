@@ -56,6 +56,7 @@ namespace projek_pbo.view
         private static void Tampilkan(Form tujuan)
         {
             tujuan.StartPosition = FormStartPosition.CenterScreen;
+            tujuan.WindowState = FormWindowState.Maximized;
             tujuan.FormClosed += (s, e) =>
             {
                 // Ditutup lewat tombol X (bukan pindah halaman) berarti keluar dari aplikasi.

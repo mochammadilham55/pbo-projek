@@ -52,6 +52,7 @@
             panel1.Controls.Add(label3);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(label2);
+            panel1.Anchor = AnchorStyles.None;
             panel1.Location = new Point(170, 140);
             panel1.Name = "panel1";
             panel1.Size = new Size(356, 346);
@@ -128,6 +129,7 @@
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.None;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = SystemColors.ControlLightLight;
@@ -139,6 +141,7 @@
             // 
             // label5
             // 
+            label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
             label5.ForeColor = Color.FromArgb(224, 224, 224);
             label5.Location = new Point(123, 288);
@@ -149,10 +152,11 @@
             // 
             // label6
             // 
+            label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 28.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label6.ForeColor = Color.FromArgb(223, 164, 38);
-            label6.Location = new Point(116, 279);
+            label6.Location = new Point(116, 312);
             label6.Name = "label6";
             label6.Size = new Size(127, 62);
             label6.TabIndex = 8;
@@ -171,6 +175,7 @@
             AcceptButton = btnLogin;
             Name = "FormLogin";
             StartPosition = FormStartPosition.CenterScreen;
+            WindowState = FormWindowState.Maximized;
             Text = "Login - Agri-Rent";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

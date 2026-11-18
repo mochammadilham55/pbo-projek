@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace projek_pbo.view
@@ -93,7 +94,7 @@ namespace projek_pbo.view
             lblJudulHalaman.Text = $"{cmbJenis.Text} ({dtpAwal.Value:dd/MM/yyyy} - {dtpAkhir.Value:dd/MM/yyyy})";
         }
         private void FilterBerubah(object sender, EventArgs e) => UpdateJudul();
-        private void AmbilData(DateTime awal, DateTime akhir)
+        private DataTable AmbilData(DateTime awal, DateTime akhir)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Tanggal", typeof(string));
