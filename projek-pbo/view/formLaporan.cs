@@ -16,47 +16,12 @@ namespace projek_pbo.view
             InitializeComponent();
             Navigasi.PasangSidebar(this, btnDashboard, btnKelolaAlat, btnKelolaSewa, btnKelolaPengembalian,
                 btnLaporan, btnKelolaUser, btnLogout);
-            SidebarStyle.Apply(pnlSidebar, btnLaporan);
         }
 
         private void lblJudulHalaman_Click(object sender, EventArgs e)
         {
 
         }
-
-        // sidebar button
-        private void btnDashboard_Click(object sender, EventArgs e)
-        {
-            new formDashboard().Show();
-            this.Hide();
-        }
-        private void btnKelolaAlat_Click(object sender, EventArgs e)
-        {
-            new formKelolaAlat().Show();
-            this.Hide();
-        }
-
-        private void btnKelolaPengembalian_Click(object sender, EventArgs e)
-        {
-            new formKelolaPengembalian().Show();
-            this.Hide();
-        }
-        private void btnKelolaSewa_Click(object sender, EventArgs e)
-        {
-            new formKelolaSewa().Show();
-            this.Hide();
-        }
-        private void btnKelolaUser_Click(object sender, EventArgs e)
-        {
-            new FormKelolaUser().Show();
-            this.Hide();
-        }
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            FormClosed += (s, e) => Application.Exit();
-        }
-
-
 
         private void formLaporan_Load(object sender, EventArgs e)
         {

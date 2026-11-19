@@ -174,21 +174,33 @@ Setiap Form terdiri dari 3 file: `.cs` (kode event yang kita tulis), `.Designer.
 
 ## 5. Alur MVC per Fitur
 
+Setiap baris diberi label lapisan, supaya terlihat siapa mengerjakan apa:
+
+| Label | Lapisan | Tugas |
+|---|---|---|
+| `[View]` | Form di `view/` | Menerima klik dan isian, menampilkan hasil |
+| `[Controller]` | Class `c_...` di `controller/` | Mengatur urutan langkah, mengembalikan `Hasil` |
+| `[Model]` | Class di `model/` | Membuat objek, memvalidasi, menjalankan aturan bisnis |
+| `[Repository]` | Class `...Repository` di `repository/` | Menyimpan dan mengambil objek dari database |
+| `[DB]` | `databaseHelper` dan PostgreSQL | Menjalankan SQL berparameter |
+
 ### 5.1 Login
 
 ```
-FormLogin.btnLogin_Click
-  └─▶ c_Auth.Login(username, password)
-        ├─▶ PenggunaRepository.CariByUsername(username)
-        │     └─▶ databaseHelper.AmbilDaftar("SELECT ... WHERE username = @username")
-        │     └─▶ Pengguna.Buat(peran, ...)  → objek Admin / Petugas
-        ├─▶ pengguna.CekPassword(password)      (password tetap private di Model)
-        └─▶ simpan ke c_Auth.PenggunaAktif → return Hasil.Sukses
-  └─▶ gagal: Tampilan.Peringatan(pesan)
-  └─▶ berhasil: Navigasi.SetelahLogin(this) → buka formDashboard
-        └─▶ Navigasi.PasangSidebar() → pengguna.MenuTersedia()   (POLYMORPHISM)
-              Admin  → 6 tombol tampil
-              Petugas→ 3 tombol tampil
+[View]        FormLogin.btnLogin_Click
+[Controller]    └─▶ c_Auth.Login(username, password)
+[Controller]          ├─▶ cek username & password tidak kosong
+[Repository]          ├─▶ PenggunaRepository.CariByUsername(username)
+[DB]                  │     ├─▶ SELECT ... FROM pengguna WHERE username = @username
+[Model]               │     └─▶ Petakan() → Pengguna.Buat(peran, ...) → objek Admin / Petugas
+[Model]               ├─▶ pengguna.CekPassword(password)      (password tetap private di Model)
+[Controller]          └─▶ simpan ke c_Auth.PenggunaAktif → return Hasil.Sukses
+[View]          └─▶ gagal:    Tampilan.Peringatan(pesan), kosongkan password
+[View]          └─▶ berhasil: Navigasi.SetelahLogin(this) → buka formDashboard
+[View]                └─▶ Navigasi.PasangSidebar()
+[Model]                     └─▶ pengguna.MenuTersedia()   (POLYMORPHISM)
+                                  Admin   → 6 tombol tampil
+                                  Petugas → 3 tombol tampil
 ```
 
 Poin penting:
@@ -201,72 +213,116 @@ Poin penting:
 **Tambah pengguna:**
 
 ```
-FormKelolaUser.btnSimpan_Click
-  └─▶ c_Pengguna.TambahPengguna(nama, username, password, peran)
-        ├─▶ PastikanAdmin()                         → hanya Admin
-        ├─▶ Pengguna.Buat(peran, ...)               → validasi di constructor (UbahData, UbahPassword)
-        ├─▶ PenggunaRepository.UsernameSudahDipakai → cegah username kembar
-        └─▶ PenggunaRepository.Tambah(pengguna)     → INSERT ... VALUES (@username, ...)
-  └─▶ Tampilan.TampilkanHasil(hasil) → MuatData()
+[View]        FormKelolaUser.btnSimpan_Click
+[Controller]    └─▶ c_Pengguna.TambahPengguna(nama, username, password, peran)
+[Controller]          ├─▶ PastikanAdmin()               → PenggunaAktif is Admin? (cek tipe objek Model)
+[Model]               ├─▶ Pengguna.Buat(peran, ...)     → new Admin(...) / new Petugas(...)
+[Model]               │     └─▶ constructor → UbahData() + UbahPassword()
+[Model]               │           nama & username wajib, username tanpa spasi, password min. 4 karakter
+[Repository]          ├─▶ PenggunaRepository.UsernameSudahDipakai(username, 0)
+[DB]                  │     └─▶ SELECT COUNT(*) ... WHERE LOWER(username) = LOWER(@username)
+[Repository]          └─▶ PenggunaRepository.Tambah(pengguna)    ← menerima OBJEK Model
+[DB]                        └─▶ INSERT INTO pengguna ... VALUES (@username, ...)
+[View]          └─▶ Tampilan.TampilkanHasil(hasil) → MuatData()
 ```
 
 **Ubah pengguna:**
 
 ```
-FormKelolaUser.btnUbah_Click
-  └─▶ c_Pengguna.UbahPengguna(id, nama, username, passwordBaru, peran)
-        ├─▶ CariById(id)
-        ├─▶ tolak jika mengubah peran akun sendiri
-        ├─▶ peran berubah? → pengguna.GantiPeran(peran)  (objek Admin ↔ Petugas baru)
-        ├─▶ pengguna.UbahData(...) ; jika password diisi → pengguna.UbahPassword(...)
-        └─▶ PenggunaRepository.Ubah(pengguna)
+[View]        FormKelolaUser.btnUbah_Click
+[Controller]    └─▶ c_Pengguna.UbahPengguna(id, nama, username, passwordBaru, peran)
+[Controller]          ├─▶ PastikanAdmin()
+[Repository]          ├─▶ PenggunaRepository.CariById(id)        → objek Admin / Petugas
+[Controller]          ├─▶ tolak jika mengubah peran akun sendiri
+[Model]               ├─▶ peran berubah? → pengguna.GantiPeran(peran)   (objek Admin ↔ Petugas baru)
+[Model]               ├─▶ pengguna.UbahData(nama, username)              (validasi)
+[Model]               ├─▶ password diisi? → pengguna.UbahPassword(...)   (validasi)
+[Repository]          ├─▶ PenggunaRepository.UsernameSudahDipakai(username, id)
+[Repository]          └─▶ PenggunaRepository.Ubah(pengguna)
+[DB]                        └─▶ UPDATE pengguna SET ... WHERE id = @id
+[View]          └─▶ Tampilan.TampilkanHasil(hasil) → MuatData()
 ```
 
-**Hapus pengguna:** setelah konfirmasi, `c_Pengguna.HapusPengguna(id)` menolak kalau yang dihapus adalah akun sendiri, lalu memanggil `PenggunaRepository.Hapus(id)`.
+**Hapus pengguna:**
+
+```
+[View]        FormKelolaUser.btnHapus_Click → Tampilan.Konfirmasi(...)
+[Controller]    └─▶ c_Pengguna.HapusPengguna(id)
+[Controller]          ├─▶ PastikanAdmin()
+[Controller]          ├─▶ tolak jika yang dihapus adalah akun sendiri
+[Repository]          └─▶ PenggunaRepository.Hapus(id) → DELETE FROM pengguna WHERE id = @id
+[View]          └─▶ Tampilan.TampilkanHasil(hasil) → MuatData()
+```
 
 ### 5.3 Kelola Alat
 
 **Tambah alat:**
 
 ```
-formKelolaAlat.btnTambah_Click
-  └─▶ AmbilIsian() → objek InputAlat (teks dari form)
-  └─▶ c_Alat.TambahAlat(input)
-        ├─▶ BuatAlat(input)
-        │     ├─ jenis "Traktor"   → new Traktor(...)    ┐ constructor memvalidasi
-        │     └─ jenis "Pompa Air" → new PompaAir(...)   ┘ (base → AlatPertanian.UbahData)
-        ├─▶ AlatRepository.Cari(kode) → tolak kode kembar
-        └─▶ AlatRepository.Tambah(alat) → INSERT; kolom jenis lain = NULL
-  └─▶ MuatUlang() → tabel diisi ulang
+[View]        formKelolaAlat.btnTambah_Click
+[View]          └─▶ AmbilIsian() → objek InputAlat (semua isian masih teks)
+[Controller]    └─▶ c_Alat.TambahAlat(input)
+[Controller]          ├─▶ BuatAlat(input): ubah teks ke angka (KeBilanganBulat, KeDesimal)
+[Model]               │     ├─ jenis "Traktor"   → new Traktor(...)    ┐ constructor memvalidasi:
+[Model]               │     └─ jenis "Pompa Air" → new PompaAir(...)   ┘ tarif > 0, merek terisi,
+[Model]               │                                                   tahun tidak di masa depan, spesifikasi > 0
+[Repository]          ├─▶ AlatRepository.Cari(kode) → tolak kode kembar
+[Repository]          └─▶ AlatRepository.Tambah(alat)    ← menerima OBJEK Model
+[DB]                        └─▶ INSERT INTO alat ...; kolom milik jenis lain = NULL
+[View]          └─▶ Tampilan.TampilkanHasil(hasil) → MuatUlang()
 ```
 
 **Menampilkan tabel (polymorphism):**
 
 ```
-c_Alat.AmbilSemuaAlat() → AlatRepository.AmbilSemua()
-   └─▶ Petakan(): kolom jenis = "Traktor" → new Traktor ; "PompaAir" → new PompaAir
-formKelolaAlat.TampilkanDaftar(List<AlatPertanian>)
-   └─▶ alat.Jenis, alat.Spesifikasi()   ← dipanggil lewat tipe induk, hasilnya sesuai subclass
+[View]        formKelolaAlat (saat dibuka / setelah simpan)
+[Controller]    └─▶ c_Alat.AmbilSemuaAlat()
+[Repository]          └─▶ AlatRepository.AmbilSemua()
+[DB]                        ├─▶ SELECT * FROM alat
+[Model]                     └─▶ Petakan(): kolom jenis "Traktor" → new Traktor ; "PompaAir" → new PompaAir
+[View]          └─▶ TampilkanDaftar(List<AlatPertanian>)
+[Model]               └─▶ alat.Jenis, alat.Spesifikasi()   ← dipanggil lewat tipe induk,
+                                                              hasilnya sesuai subclass
 ```
 
-**Ubah alat:** `c_Alat.UbahAlat()` menjalankan langkah berikut:
+**Ubah alat:**
 
-1. Ambil alat dari database.
-2. Tolak kalau jenisnya diganti.
-3. Panggil `alat.UbahData(...)`.
-4. Kalau objeknya `Traktor`, panggil `UbahSpesifikasi(...)` milik Traktor; kalau `PompaAir`, panggil `UbahSpesifikasi(...)` milik PompaAir.
-5. Simpan lewat `AlatRepository.Ubah()`.
+```
+[View]        formKelolaAlat.btnUbah_Click → AmbilIsian()
+[Controller]    └─▶ c_Alat.UbahAlat(input)
+[Repository]          ├─▶ AlatRepository.Cari(kode)         → objek Traktor / PompaAir
+[Controller]          ├─▶ tolak jika jenis diganti
+[Model]               ├─▶ alat.UbahData(nama, merek, deskripsi, tahun, kondisi, tarif)   (validasi)
+[Model]               ├─▶ Traktor?  → traktor.UbahSpesifikasi(tenaga, tangki, jenisTraktor)
+[Model]               │   PompaAir? → pompa.UbahSpesifikasi(debit, berat, bahanBakar, pipa)
+[Repository]          └─▶ AlatRepository.Ubah(alat) → UPDATE alat SET ... WHERE kode = @kode
+[View]          └─▶ Tampilan.TampilkanHasil(hasil) → MuatUlang()
+```
 
-**Hapus alat:** `c_Alat.HapusAlat()` menolak kalau status alat Disewa. Kalau alat sudah punya riwayat sewa, database menolak (foreign key), dan repository mengubah error itu menjadi pesan yang jelas.
+**Hapus alat:**
+
+```
+[View]        formKelolaAlat.btnHapus_Click → Tampilan.Konfirmasi(...)
+[Controller]    └─▶ c_Alat.HapusAlat(kode)
+[Repository]          ├─▶ AlatRepository.Cari(kode)
+[Model]               ├─▶ alat.Status == Disewa? → tolak
+[Repository]          └─▶ AlatRepository.Hapus(kode) → DELETE FROM alat WHERE kode = @kode
+[DB]                        └─▶ sudah punya riwayat sewa? foreign key menolak →
+[Repository]                      diubah jadi pesan "Alat tidak dapat dihapus karena sudah memiliki riwayat sewa."
+[View]          └─▶ Tampilan.TampilkanHasil(hasil) → MuatUlang()
+```
 
 **Cari alat (overloading):**
 
 ```
-formKelolaAlat.btnCari_Click
-  ├─▶ c_Alat.Cari(kataKunci)          → Cari(string kode): hasil 1 alat atau null
-  │      jika ketemu (dan jenis cocok) → tampilkan 1 alat itu
-  └─▶ c_Alat.Cari(kataKunci, jenis)   → Cari(string nama, string jenis): daftar alat
-         AlatRepository.Cari(...) → WHERE (kode ILIKE @kata OR nama ILIKE @kata OR merek ILIKE @kata) [AND jenis = @jenis]
+[View]        formKelolaAlat.btnCari_Click
+[Controller]    ├─▶ c_Alat.Cari(kataKunci)          → Cari(string kode): 1 alat atau null
+[Repository]    │     └─▶ AlatRepository.Cari(kode) → WHERE kode = @kode
+[View]          │     ketemu dan jenis cocok → tampilkan 1 alat itu
+[Controller]    └─▶ c_Alat.Cari(kataKunci, jenis)   → Cari(string nama, string jenis): daftar alat
+[Repository]          └─▶ AlatRepository.Cari(kataKunci, jenis)
+[DB]                        └─▶ WHERE (kode ILIKE @kata OR nama ILIKE @kata OR merek ILIKE @kata)
+                                [AND jenis = @jenis]
 ```
 
 ### 5.4 Kelola Pengembalian dan Denda
@@ -274,53 +330,64 @@ formKelolaAlat.btnCari_Click
 **Menampilkan sewa aktif:**
 
 ```
-formKelolaPengembalian.MuatData()
-  └─▶ c_Penyewaan.AmbilSewaAktif(cariNama)
-        └─▶ PenyewaanRepository → JOIN penyewaan + penyewa + alat → List<Penyewaan>
-  └─▶ setiap baris: sewa.HitungHariTerlambat(hari ini) → "Terlambat n hari" (merah) / "Tepat waktu"
+[View]        formKelolaPengembalian.MuatData()
+[Controller]    └─▶ c_Penyewaan.AmbilSewaAktif(cariNama)
+[Repository]          └─▶ PenyewaanRepository.AmbilSewaAktif(cariNama)
+[DB]                        ├─▶ SELECT ... JOIN penyewaan + penyewa + alat WHERE status = 'Aktif'
+[Model]                     └─▶ Petakan() → objek Penyewaan (berisi objek Penyewa dan AlatPertanian)
+[Model]         └─▶ setiap baris: sewa.HitungHariTerlambat(hari ini)
+[View]                └─▶ "Terlambat n hari" (merah) / "Tepat waktu"
 ```
 
-**Pratinjau denda** (setiap kali tanggal, checkbox, atau nominal berubah):
+**Pratinjau denda** (setiap kali tanggal, checkbox, atau nominal berubah; tidak menyimpan apa pun):
 
 ```
-PerbaruiRincian()
-  └─▶ c_Pengembalian.HitungRincian(sewa, tanggal, adaKerusakan, nominal)
-        ├─▶ sewa.HitungHariTerlambat(tanggal)
-        ├─▶ new DendaTerlambat(hari, tarif, totalBiaya).HitungDenda()
-        └─▶ return RincianDenda(hari, dendaTerlambat, dendaKerusakan, total)
+[View]        PerbaruiRincian()
+[Controller]    └─▶ c_Pengembalian.HitungRincian(sewa, tanggal, adaKerusakan, nominal)
+[Model]               ├─▶ sewa.HitungHariTerlambat(tanggal)
+[Model]               ├─▶ new DendaTerlambat(hari, tarif, sewa.HitungTotalBiaya()).HitungDenda()
+[Controller]          └─▶ return RincianDenda(hari, dendaTerlambat, dendaKerusakan, total)
+[View]          └─▶ isi txtTerlambat, txtDenda, txtTotalDenda
 ```
 
 **Proses pengembalian:**
 
 ```
-formKelolaPengembalian.btnProses_Click
-  └─▶ c_Pengembalian.ProsesPengembalian(sewa, tanggal, adaKerusakan, nominal, keterangan)
-        ├─▶ new Pengembalian(0, sewa, tanggal)               → validasi tanggal & status sewa
-        ├─▶ jika terlambat: TambahDenda(new DendaTerlambat(...))   ┐ keduanya disimpan
-        ├─▶ jika rusak:     TambahDenda(new DendaKerusakan(...))   ┘ sebagai IDenda
-        ├─▶ pengembalian.Proses()
-        │     ├─ Penyewaan.Selesaikan()           → status sewa = Selesai
-        │     └─ ada kerusakan? Alat.TandaiRusak() : Alat.Kembalikan()
-        └─▶ PengembalianRepository.Simpan(pengembalian)   ── SATU TRANSAKSI ──
-              1. INSERT pengembalian RETURNING id
-              2. INSERT denda (untuk tiap IDenda; jenis Terlambat / Kerusakan)
-              3. UPDATE penyewaan SET status
-              4. UPDATE alat SET status
-  └─▶ pesan berisi total denda = pengembalian.TotalDenda()  (POLYMORPHISM lewat IDenda)
+[View]        formKelolaPengembalian.btnProses_Click → Tampilan.Konfirmasi(...)
+[Controller]    └─▶ c_Pengembalian.ProsesPengembalian(sewa, tanggal, adaKerusakan, nominal, keterangan)
+[Model]               ├─▶ new Pengembalian(0, sewa, tanggal)        → validasi: sewa masih Aktif,
+[Model]               │                                                tanggal tidak sebelum mulai / di masa depan
+[Model]               ├─▶ terlambat? pengembalian.TambahDenda(new DendaTerlambat(...))   ┐ disimpan
+[Model]               ├─▶ rusak?     pengembalian.TambahDenda(new DendaKerusakan(...))   ┘ sebagai IDenda
+[Model]               ├─▶ pengembalian.Proses()
+[Model]               │     ├─ Penyewaan.Selesaikan()           → status sewa = Selesai
+[Model]               │     └─ ada kerusakan? Alat.TandaiRusak() : Alat.Kembalikan()
+[Repository]          └─▶ PengembalianRepository.Simpan(pengembalian)   ── SATU TRANSAKSI ──
+[DB]                        1. INSERT pengembalian RETURNING id
+[DB]                        2. INSERT denda (untuk tiap IDenda; jenis Terlambat / Kerusakan)
+[DB]                        3. UPDATE penyewaan SET status
+[DB]                        4. UPDATE alat SET status
+[DB]                        gagal di langkah mana pun → ROLLBACK semua
+[Model]         └─▶ total denda = pengembalian.TotalDenda()   (POLYMORPHISM lewat IDenda)
+[View]          └─▶ Tampilan.TampilkanHasil(hasil) → MuatData()
 ```
 
 ### 5.5 Dashboard
 
 ```
-formDashboard.MuatData()
-  ├─▶ c_Dashboard.AmbilKartu()
-  │     ├─▶ AlatRepository.HitungTersedia()                 → kartu "Alat Tersedia"
-  │     ├─▶ PenyewaanRepository.HitungAktif()               → kartu "Sewa Aktif"
-  │     ├─▶ PenyewaanRepository.HitungTerlambat(hari ini)   → kartu "Sewa Terlambat"
-  │     └─▶ TotalPembayaranLunas(bulan ini) + PengembalianRepository.TotalDenda(bulan ini)
-  │                                                          → kartu "Pendapatan Bulan Ini"
-  │     return List<Kartu>
-  └─▶ c_Dashboard.AmbilTransaksiTerakhir() → 10 penyewaan terbaru → tabel
+[View]        formDashboard.MuatData()
+[Controller]    ├─▶ c_Dashboard.AmbilKartu()
+[Repository]    │     ├─▶ AlatRepository.HitungTersedia()                   → "Alat Tersedia"
+[Repository]    │     ├─▶ PenyewaanRepository.HitungAktif()                 → "Sewa Aktif"
+[Repository]    │     ├─▶ PenyewaanRepository.HitungTerlambat(hari ini)     → "Sewa Terlambat"
+[Repository]    │     ├─▶ PenyewaanRepository.TotalPembayaranLunas(bulan ini)
+[Repository]    │     │   + PengembalianRepository.TotalDenda(bulan ini)    → "Pendapatan Bulan Ini"
+[Model]         │     └─▶ new Kartu(judul, nilai) × 4 → return List<Kartu>
+[View]          │           isi lblAlat, lblSewa, lblTelat, lblPendapatan
+[Controller]    └─▶ c_Dashboard.AmbilTransaksiTerakhir()
+[Repository]          └─▶ PenyewaanRepository.AmbilTerakhir(10) → List<Penyewaan>
+[Model]         └─▶ setiap baris: sewa.HitungTotalBiaya(), sewa.HitungHariTerlambat(hari ini)
+[View]                └─▶ status "Terlambat" ditulis merah
 ```
 
 `Kartu` tidak mengambil data sendiri. Nilainya disiapkan oleh Controller, sesuai rancangan.
