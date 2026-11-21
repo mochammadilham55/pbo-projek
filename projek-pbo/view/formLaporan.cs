@@ -109,18 +109,6 @@ namespace projek_pbo.view
 
         }
 
-        // sidebar button
-        private void btnDashboard_Click(object sender, EventArgs e)
-        {
-            new formDashboard().Show();
-            this.Hide();
-        }
-        private void btnKelolaAlat_Click(object sender, EventArgs e)
-        {
-            new formKelolaAlat().Show();
-            this.Hide();
-        }
-
         private void btnKelolaPengembalian_Click(object sender, EventArgs e)
         {
             new formKelolaPengembalian().Show();
