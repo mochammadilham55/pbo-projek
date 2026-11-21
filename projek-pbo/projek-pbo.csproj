@@ -10,12 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Npgsql" Version="10.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="controller\" />
-    <Folder Include="repository\" />
+    <PackageReference Include="Npgsql" Version="11.0.0" />
   </ItemGroup>
 
   <ItemGroup>
