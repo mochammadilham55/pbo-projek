@@ -73,13 +73,15 @@ namespace projek_pbo.repository
 
         public void Ubah(AlatPertanian alat)
         {
-            databaseHelper.Eksekusi(
+            int jumlah = databaseHelper.Eksekusi(
                 "UPDATE alat SET nama = @nama, jenis = @jenis, merek = @merek, deskripsi = @deskripsi, " +
-                "tahun_keluaran = @tahun, kondisi = @kondisi, tarif_per_hari = @tarif, status = @status, " +
+                "tahun_keluaran = @tahun, kondisi = @kondisi, tarif_per_hari = @tarif, status = CASE WHEN status = 'Disewa' THEN status WHEN @kondisi = 'PerluServis' THEN 'Rusak' ELSE 'Tersedia' END, " +
                 "tenaga_hp = @tenaga, kapasitas_tangki = @tangki, jenis_traktor = @jenisTraktor, " +
                 "debit_liter_per_menit = @debit, berat_kg = @berat, bahan_bakar = @bahanBakar, " +
-                "diameter_pipa_inci = @pipa WHERE kode = @kode",
+                "diameter_pipa_inci = @pipa WHERE kode = @kode AND status <> 'Disewa'",
                 Parameter(alat));
+            if (jumlah != 1)
+                throw new InvalidOperationException("Alat sedang disewa atau tidak ditemukan.");
         }
 
         public void Hapus(string kode)
@@ -124,7 +126,7 @@ namespace projek_pbo.repository
         public int HitungTersedia()
         {
             return Convert.ToInt32(databaseHelper.AmbilNilai(
-                "SELECT COUNT(*) FROM alat WHERE status = @status",
+                "SELECT COUNT(*) FROM alat WHERE status = @status AND kondisi <> 'PerluServis'",
                 ("@status", StatusAlat.Tersedia.ToString())));
         }
     }
