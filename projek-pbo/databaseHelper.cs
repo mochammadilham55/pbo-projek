@@ -18,7 +18,20 @@ namespace projek_pbo
         {
             var cmd = new NpgsqlCommand(sql, conn, tx);
             foreach (var (nama, nilai) in parameter)
-                cmd.Parameters.AddWithValue(nama, nilai ?? DBNull.Value);
+                {
+                if (nilai != null)
+                    cmd.Parameters.AddWithValue(nama, nilai);
+                else
+                {
+                    var tipe = nama switch
+                    {
+                        "@tenaga" or "@hari" => NpgsqlTypes.NpgsqlDbType.Integer,
+                        "@tangki" or "@debit" or "@berat" or "@pipa" => NpgsqlTypes.NpgsqlDbType.Numeric,
+                        _ => NpgsqlTypes.NpgsqlDbType.Text
+                    };
+                    cmd.Parameters.Add(nama, tipe).Value = DBNull.Value;
+                }
+            }
             return cmd;
         }
 
@@ -75,6 +88,7 @@ namespace projek_pbo
             JalankanTransaksi((conn, tx) =>
             {
                 BuatCommand(conn, tx, SqlBuatTabel).ExecuteNonQuery();
+                BuatCommand(conn, tx, "CREATE UNIQUE INDEX IF NOT EXISTS ux_penyewaan_alat_aktif ON penyewaan(alat_kode) WHERE status = 'Aktif'").ExecuteNonQuery();
 
                 long jumlahPengguna = (long)BuatCommand(conn, tx, "SELECT COUNT(*) FROM pengguna").ExecuteScalar()!;
                 if (jumlahPengguna == 0)
