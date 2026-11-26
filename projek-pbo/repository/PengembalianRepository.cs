@@ -11,6 +11,10 @@ namespace projek_pbo.repository
 
             databaseHelper.JalankanTransaksi((conn, tx) =>
             {
+                using var kunci = databaseHelper.BuatCommand(conn, tx,
+                    "UPDATE penyewaan SET status = 'Selesai' WHERE id = @id AND status = 'Aktif'", ("@id", sewa.Id));
+                if (kunci.ExecuteNonQuery() != 1)
+                    throw new InvalidOperationException("Penyewaan sudah tidak aktif. Muat ulang data.");
                 int idPengembalian = (int)databaseHelper.BuatCommand(conn, tx,
                     "INSERT INTO pengembalian (penyewaan_id, tanggal_kembali) " +
                     "VALUES (@sewa, @tanggal) RETURNING id",
@@ -29,15 +33,14 @@ namespace projek_pbo.repository
                         ("@hari", (denda as DendaTerlambat)?.HariTerlambat)).ExecuteNonQuery();
                 }
 
-                databaseHelper.BuatCommand(conn, tx,
-                    "UPDATE penyewaan SET status = @status WHERE id = @id",
-                    ("@status", sewa.Status.ToString()),
-                    ("@id", sewa.Id)).ExecuteNonQuery();
 
-                databaseHelper.BuatCommand(conn, tx,
-                    "UPDATE alat SET status = @status WHERE kode = @kode",
-                    ("@status", sewa.Alat.Status.ToString()),
-                    ("@kode", sewa.Alat.Kode)).ExecuteNonQuery();
+
+                using var alat = databaseHelper.BuatCommand(conn, tx,
+                    "UPDATE alat SET status = @status, kondisi = CASE WHEN @status = 'Rusak' THEN 'PerluServis' ELSE kondisi END WHERE kode = @kode AND status = 'Disewa'",
+                    ("@status", pengembalian.AdaKerusakan ? "Rusak" : "Tersedia"),
+                    ("@kode", sewa.Alat.Kode));
+                if (alat.ExecuteNonQuery() != 1)
+                    throw new InvalidOperationException("Status alat telah berubah. Muat ulang data.");
             });
         }
 
