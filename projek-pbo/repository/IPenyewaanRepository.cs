@@ -4,6 +4,10 @@ namespace projek_pbo.repository
 {
     public interface IPenyewaanRepository
     {
+        List<Penyewa> AmbilPenyewa();
+        List<AlatPertanian> AmbilAlatTersedia();
+        List<RingkasanSewa> AmbilRiwayat(string cari);
+        int SimpanSewaDanPembayaran(Penyewaan sewa, Pembayaran bayar);
         List<Penyewaan> AmbilSewaAktif(string namaPenyewa);
         List<Penyewaan> AmbilTerakhir(int jumlah);
         int HitungAktif();

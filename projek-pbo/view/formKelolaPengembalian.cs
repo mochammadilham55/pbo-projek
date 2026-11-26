@@ -127,8 +127,7 @@ namespace projek_pbo.view
             Hasil hasil = pengembalianController.ProsesPengembalian(sewaTerpilih, dtpKembali.Value.Date,
                 chkAdaKerusakan.Checked, txtDendaKerusakan.Text, txtKeterangan.Text);
             Tampilan.TampilkanHasil(hasil);
-            if (hasil.Berhasil)
-                MuatData();
+            MuatData();
         }
     }
 }

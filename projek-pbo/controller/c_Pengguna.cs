@@ -9,6 +9,7 @@ namespace projek_pbo.controller
 
         public List<Pengguna> AmbilSemuaPengguna()
         {
+            PastikanAdmin();
             return penggunaRepository.AmbilSemua();
         }
 

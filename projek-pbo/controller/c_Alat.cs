@@ -14,6 +14,12 @@ namespace projek_pbo.controller
 
         private readonly IAlatRepository alatRepository = new AlatRepository();
 
+        private static void PastikanAdmin()
+        {
+            if (c_Auth.PenggunaAktif is not Admin)
+                throw new InvalidOperationException("Hanya Admin yang dapat mengelola alat.");
+        }
+
         public List<AlatPertanian> AmbilSemuaAlat()
         {
             return alatRepository.AmbilSemua();
@@ -41,6 +47,7 @@ namespace projek_pbo.controller
         {
             return Hasil.Coba(() =>
             {
+                PastikanAdmin();
                 AlatPertanian alat = BuatAlat(input);
                 if (alatRepository.Cari(alat.Kode) != null)
                     throw new InvalidOperationException($"Kode alat {alat.Kode} sudah dipakai.");
@@ -54,6 +61,7 @@ namespace projek_pbo.controller
         {
             return Hasil.Coba(() =>
             {
+                PastikanAdmin();
                 AlatPertanian alat = alatRepository.Cari(input.Kode)
                     ?? throw new InvalidOperationException("Alat tidak ditemukan. Pilih alat dari tabel terlebih dahulu.");
                 if (alat.Jenis != input.Jenis)
@@ -89,6 +97,7 @@ namespace projek_pbo.controller
         {
             return Hasil.Coba(() =>
             {
+                PastikanAdmin();
                 AlatPertanian alat = alatRepository.Cari(kode)
                     ?? throw new InvalidOperationException("Alat tidak ditemukan. Pilih alat dari tabel terlebih dahulu.");
                 if (alat.Status == StatusAlat.Disewa)
@@ -109,13 +118,13 @@ namespace projek_pbo.controller
             return input.Jenis switch
             {
                 NamaTraktor => new Traktor(input.Kode, input.Nama, input.Merek, input.Deskripsi,
-                    tahun, kondisi, tarif, StatusAlat.Tersedia,
+                    tahun, kondisi, tarif, kondisi == KondisiAlat.PerluServis ? StatusAlat.Rusak : StatusAlat.Tersedia,
                     KeBilanganBulat(input.TenagaHp, "Tenaga (HP)"),
                     KeDesimal(input.KapasitasTangki, "Kapasitas tangki"),
                     JenisTraktorTeks.DariTeks(input.JenisTraktor)),
 
                 NamaPompaAir => new PompaAir(input.Kode, input.Nama, input.Merek, input.Deskripsi,
-                    tahun, kondisi, tarif, StatusAlat.Tersedia,
+                    tahun, kondisi, tarif, kondisi == KondisiAlat.PerluServis ? StatusAlat.Rusak : StatusAlat.Tersedia,
                     KeDesimal(input.DebitLiterPerMenit, "Debit"),
                     KeDesimal(input.BeratKg, "Berat"),
                     input.BahanBakar,
