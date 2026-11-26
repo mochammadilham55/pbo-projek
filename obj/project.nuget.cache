@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "Qo5VRY3cMU0=",
+  "success": true,
+  "projectFilePath": "D:\\PBO AKHIR\\pbo-projek\\projek-pbo\\projek-pbo.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\MyBook Z Series\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\11.0.0\\microsoft.extensions.dependencyinjection.abstractions.11.0.0.nupkg.sha512",
+    "C:\\Users\\MyBook Z Series\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\11.0.0\\microsoft.extensions.logging.abstractions.11.0.0.nupkg.sha512",
+    "C:\\Users\\MyBook Z Series\\.nuget\\packages\\npgsql\\11.0.0\\npgsql.11.0.0.nupkg.sha512",
+    "C:\\Users\\MyBook Z Series\\.nuget\\packages\\system.diagnostics.diagnosticsource\\11.0.0\\system.diagnostics.diagnosticsource.11.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
