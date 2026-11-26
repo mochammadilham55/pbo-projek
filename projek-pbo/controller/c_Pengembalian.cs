@@ -30,6 +30,8 @@ namespace projek_pbo.controller
         {
             return Hasil.Coba(() =>
             {
+                if (c_Auth.PenggunaAktif?.MenuTersedia().Contains(MenuAplikasi.KelolaPengembalian) != true)
+                    throw new InvalidOperationException("Anda tidak memiliki akses pengembalian.");
                 var pengembalian = new Pengembalian(0, sewa, tanggalKembali);
 
                 // Denda keterlambatan dibuat otomatis.
@@ -42,7 +44,6 @@ namespace projek_pbo.controller
                 if (adaKerusakan)
                     TambahDendaKerusakan(pengembalian, nominalKerusakan, keteranganKerusakan);
 
-                pengembalian.Proses();
                 pengembalianRepository.Simpan(pengembalian);
 
                 return $"Pengembalian {sewa.Alat.Kode} oleh {sewa.Penyewa.Nama} berhasil diproses.\n" +
